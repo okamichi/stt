@@ -1,15 +1,18 @@
-# Discord STT / TTS
+# Discord Session Transcription & Talkback
 
-Discordのボイスチャンネルで、参加者ごとの発言を文字起こしし、入力した文章を読み上げるツールです。音声認識と音声合成はローカルのspeech.cppで行います。
+- Discord のボイスチャンネルで、参加者別の音声をリアルタイムで文字起こします（話者識別はをしなくても100%話者の判別可能）。
+- 入力したテキストを音声合成する機能も付いています。
+- 音声認識と音声合成は内包する[nyosegawa/speech.cpp](https://github.com/nyosegawa/speech.cpp)で行います。
 
 ## ビルド済みパッケージ
 
-[GitHub Actions](https://github.com/okamichi/stt/actions/workflows/package.yml) の成功した実行からArtifactsをダウンロードします。タグのビルドではGitHub Releasesのドラフトも作成します。
+[Release](https://github.com/okamichi/stt/releases) から、ビルド済みパッケージをダウンロードします。
 
 - macOS Apple Silicon: `stt-バージョン-darwin-arm64.zip`
 - Windows x64: `stt-バージョン-win32-x64.zip`（CPU版はAVX2対応CPUが必要）
 
 Node.js、Discord依存パッケージ、speech.cppを同梱します。利用者による開発ツールのインストールは不要です。配布フォルダ全体を保管してください。
+また、前もって[Discord Developer Portal](https://discord.com/developers/applications)で、アプリケーションを作成し、招待トークンを発行しておいてください。
 
 1. ZIPを書き込み可能なフォルダに展開します。
 2. `config.example.json` を `config.json` にコピーし、`token` にBotトークン、`channel` にボイスチャンネルIDを文字列で設定します。
