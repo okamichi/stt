@@ -1,0 +1,2 @@
+# Preserve the exact upstream license bytes used by SHA-256 verification.
+packaging/licenses/*-LICENSE text eol=lf
