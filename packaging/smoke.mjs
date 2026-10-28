@@ -9,7 +9,9 @@ const { archive, name } = JSON.parse(
 const work = mkdtempSync(join(tmpdir(), "stt package 日本語 "));
 const windows = process.platform === "win32";
 execFileSync(
-  windows ? "tar.exe" : "unzip",
+  windows
+    ? join(process.env.SystemRoot ?? "C:/Windows", "System32", "tar.exe")
+    : "unzip",
   windows ? ["-xf", archive, "-C", work] : ["-q", archive, "-d", work],
 );
 const root = join(work, name);

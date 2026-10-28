@@ -114,9 +114,12 @@ writeFileSync(
 );
 const archive = join(dist, `${name}.zip`);
 if (windows)
-  execFileSync("tar.exe", ["-a", "-cf", archive, "-C", work, name], {
-    stdio: "inherit",
-  });
+  // Git Bash's GNU tar treats the drive letter as a remote host.
+  execFileSync(
+    join(process.env.SystemRoot ?? "C:/Windows", "System32", "tar.exe"),
+    ["-a", "-cf", archive, "-C", work, name],
+    { stdio: "inherit" },
+  );
 else
   execFileSync("zip", ["-qr", archive, name], { cwd: work, stdio: "inherit" });
 writeFileSync(
