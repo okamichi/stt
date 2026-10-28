@@ -1,0 +1,7 @@
+{
+  "token": "",
+  "channel": "",
+  "ttsModel": "qwen3-tts-0.6b",
+  "asrModel": "qwen3-asr-0.6b",
+  "vadModel": "silero-vad"
+}

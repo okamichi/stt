@@ -1,0 +1,28 @@
+{
+  "name": "discord-stt",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node stt.mjs",
+    "check": "node stt.mjs --check",
+    "test": "node --test *.test.mjs",
+    "package:speech": "node packaging/build-speech.mjs",
+    "package:build": "node packaging/build.mjs",
+    "package:smoke": "node packaging/smoke.mjs"
+  },
+  "dependencies": {
+    "@discordjs/voice": "0.19.2",
+    "discord.js": "14.27.0",
+    "opusscript": "0.0.8"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Standalone Discord speech recognition and text-to-speech using speech.cpp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/okamichi/stt.git"
+  }
+}

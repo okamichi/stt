@@ -1,0 +1,9 @@
+node_modules/
+models/
+data/
+*.jsonl
+.env*
+config.json
+.packaging/
+dist/
+.DS_Store
