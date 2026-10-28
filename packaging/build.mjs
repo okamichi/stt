@@ -11,6 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { createArchive } from "./archive.mjs";
 import { supplementLicenses } from "./licenses.mjs";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const target = `${process.platform}-${process.arch}`;
@@ -113,15 +114,7 @@ writeFileSync(
   ),
 );
 const archive = join(dist, `${name}.zip`);
-if (windows)
-  // Git Bash's GNU tar treats the drive letter as a remote host.
-  execFileSync(
-    join(process.env.SystemRoot ?? "C:/Windows", "System32", "tar.exe"),
-    ["-a", "-cf", archive, "-C", work, name],
-    { stdio: "inherit" },
-  );
-else
-  execFileSync("zip", ["-qr", archive, name], { cwd: work, stdio: "inherit" });
+createArchive(stage, archive);
 writeFileSync(
   `${archive}.sha256`,
   `${createHash("sha256").update(readFileSync(archive)).digest("hex")}  ${name}.zip\n`,

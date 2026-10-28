@@ -2,18 +2,14 @@ import { readFileSync, mkdtempSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
+import { extractArchive } from "./archive.mjs";
 import assert from "node:assert/strict";
 const { archive, name } = JSON.parse(
   readFileSync(new URL("../.packaging/latest.json", import.meta.url)),
 );
 const work = mkdtempSync(join(tmpdir(), "stt package 日本語 "));
 const windows = process.platform === "win32";
-execFileSync(
-  windows
-    ? join(process.env.SystemRoot ?? "C:/Windows", "System32", "tar.exe")
-    : "unzip",
-  windows ? ["-xf", archive, "-C", work] : ["-q", archive, "-d", work],
-);
+extractArchive(archive, work);
 const root = join(work, name);
 const node = join(root, "runtime", windows ? "node.exe" : "node");
 const env = {

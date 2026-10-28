@@ -37,6 +37,8 @@ jobs:
       - name: Check native build target
         run: node -e "if(process.platform !== '${{ matrix.platform }}' || process.arch !== '${{ matrix.arch }}') process.exit(1)"
       - run: npm ci --no-audit --no-fund
+      - name: Test application and Unicode ZIP round trip
+        run: npm test
       # The Windows package also carries a Vulkan build of speech.cpp; its SDK
       # version follows speech.cpp's own release workflow.
       - name: Install the Vulkan SDK
@@ -51,7 +53,6 @@ jobs:
           Add-Content $env:GITHUB_PATH "C:\VulkanSDK\$env:VULKAN_VERSION\bin"
       - name: Build pinned speech.cpp and process supervisor
         run: npm run package:speech
-      - run: npm test
       - name: Assemble standalone package
         run: npm run package:build
       - name: Test extracted package without Node on PATH
